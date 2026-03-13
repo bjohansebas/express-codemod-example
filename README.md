@@ -13,7 +13,7 @@ src/
 ├── app.js                  # Main app — res.send(status), res.redirect(url, status),
 │                           #   res.redirect('back'), res.sendfile(), singular methods
 ├── routes/
-│   ├── users.js            # CRUD routes — router.del(), req.param(), res.json(obj, status)
+│   ├── users.js            # CRUD routes — req.param(), res.json(obj, status)
 │   └── products.js         # More routes — res.jsonp(obj, status), res.location('back'),
 │                           #   res.send(body, status), singular methods
 └── middleware/
@@ -76,7 +76,7 @@ curl -X PUT http://localhost:3000/api/users/1 \
   -H "Content-Type: application/json" \
   -d '{"token":"mytoken","name":"Alice Updated","email":"alice2@example.com"}'
 
-# DELETE a user  (Express 4: router.del())
+# DELETE a user
 curl -X DELETE "http://localhost:3000/api/users/1?token=mytoken"
 
 # GET user avatar  (Express 4: res.sendfile())
@@ -105,7 +105,7 @@ curl -X POST http://localhost:3000/api/products \
   -H "Content-Type: application/json" \
   -d '{"token":"mytoken","name":"Monitor","price":"320","category":"electronics"}'
 
-# DELETE a product  (Express 4: router.del())
+# DELETE a product
 curl -X DELETE "http://localhost:3000/api/products/1?token=mytoken"
 
 # GET product image  (Express 4: res.sendfile())
@@ -151,7 +151,7 @@ The [`signatures-express-4/`](./signatures-express-4/) folder contains one focus
 
 | File | Pattern |
 |------|---------|
-| [`route-del.js`](./signatures-express-4/route-del.js) | `app.del()` / `router.del()` |
+| [`route-del.js`](./signatures-express-4/route-del.js) | `app.del()` |
 | [`status-send-order.js`](./signatures-express-4/status-send-order.js) | `res.json(obj, status)`, `res.send(body, status)`, `res.jsonp(obj, status)`, `res.send(200)` |
 | [`redirect-arg-order.js`](./signatures-express-4/redirect-arg-order.js) | `res.redirect(url, status)` |
 | [`back-redirect-deprecated.js`](./signatures-express-4/back-redirect-deprecated.js) | `res.redirect('back')` / `res.location('back')` |
@@ -167,7 +167,7 @@ These are the exact patterns that crash when you upgrade to Express 5 without ru
 
 | # | Pattern (Express 4)                | Codemod                              |
 |---|-------------------------------------|--------------------------------------|
-| 1 | `app.del()` / `router.del()`       | `@expressjs/route-del-to-delete`     |
+| 1 | `app.del()`                        | `@expressjs/route-del-to-delete`     |
 | 2 | `res.send(body, status)`           | `@expressjs/status-send-order`       |
 | 3 | `res.json(obj, status)`            | `@expressjs/status-send-order`       |
 | 4 | `res.jsonp(obj, status)`           | `@expressjs/status-send-order`       |

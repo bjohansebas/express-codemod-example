@@ -58,8 +58,7 @@ router.post('/', (req, res) => {
 });
 
 // ─── DELETE product ───
-// PATTERN: router.del() — deprecated alias
-router.del('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const id = req.param('id');
   res.json({ message: `Product ${id} deleted` }, 200);
 });

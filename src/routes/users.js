@@ -59,8 +59,7 @@ router.put('/:id', (req, res) => {
 });
 
 // ─── DELETE user ───
-// PATTERN: app.del() — deprecated alias for .delete()
-router.del('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const id = req.param('id');
 
   res.json({ message: `User ${id} deleted` }, 200);

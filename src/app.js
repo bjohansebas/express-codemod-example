@@ -35,6 +35,12 @@ app.get('/go-back', (req, res) => {
   res.redirect('back');
 });
 
+// ─── Legacy delete endpoint ───
+// PATTERN: app.del() — deprecated alias for .delete()
+app.del('/legacy-user/:id', (req, res) => {
+  res.send(`DELETE /legacy-user/${req.params.id}`);
+});
+
 // ─── Static file serving ───
 // PATTERN: res.sendfile() — lowercase 'f'
 app.get('/download/:filename', (req, res) => {
@@ -61,9 +67,11 @@ app.use((err, req, res, next) => {
   res.send('Internal Server Error', 500);
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 module.exports = app;
