@@ -145,6 +145,24 @@ Every `curl` command above works **identically** — the codemods only fix the i
 
 ---
 
+## Express 4 Pattern Signatures
+
+The [`signatures-express-4/`](./signatures-express-4/) folder contains one focused file per deprecated pattern, showing exactly how each API was used in Express 4:
+
+| File | Pattern |
+|------|---------|
+| [`route-del.js`](./signatures-express-4/route-del.js) | `app.del()` / `router.del()` |
+| [`status-send-order.js`](./signatures-express-4/status-send-order.js) | `res.json(obj, status)`, `res.send(body, status)`, `res.jsonp(obj, status)`, `res.send(200)` |
+| [`redirect-arg-order.js`](./signatures-express-4/redirect-arg-order.js) | `res.redirect(url, status)` |
+| [`back-redirect-deprecated.js`](./signatures-express-4/back-redirect-deprecated.js) | `res.redirect('back')` / `res.location('back')` |
+| [`explicit-request-params.js`](./signatures-express-4/explicit-request-params.js) | `req.param()` |
+| [`camelcase-sendfile.js`](./signatures-express-4/camelcase-sendfile.js) | `res.sendfile()` |
+| [`pluralize-method-names.js`](./signatures-express-4/pluralize-method-names.js) | `req.acceptsCharset()`, `req.acceptsEncoding()`, `req.acceptsLanguage()` |
+
+These are the exact patterns that crash when you upgrade to Express 5 without running the codemods first.
+
+---
+
 ## Deprecated Patterns Covered
 
 | # | Pattern (Express 4)                | Codemod                              |
