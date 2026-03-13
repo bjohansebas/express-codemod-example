@@ -145,21 +145,24 @@ Every `curl` command above works **identically** — the codemods only fix the i
 
 ---
 
-## Express 4 Pattern Signatures
+## Pattern Signatures (Express 4 vs 5)
 
-The [`signatures-express-4/`](./signatures-express-4/) folder contains one focused file per deprecated pattern, showing exactly how each API was used in Express 4:
+You can compare both versions side by side:
 
-| File | Pattern |
-|------|---------|
-| [`route-del.js`](./signatures-express-4/route-del.js) | `app.del()` |
-| [`status-send-order.js`](./signatures-express-4/status-send-order.js) | `res.json(obj, status)`, `res.send(body, status)`, `res.jsonp(obj, status)`, `res.send(200)` |
-| [`redirect-arg-order.js`](./signatures-express-4/redirect-arg-order.js) | `res.redirect(url, status)` |
-| [`back-redirect-deprecated.js`](./signatures-express-4/back-redirect-deprecated.js) | `res.redirect('back')` / `res.location('back')` |
-| [`explicit-request-params.js`](./signatures-express-4/explicit-request-params.js) | `req.param()` |
-| [`camelcase-sendfile.js`](./signatures-express-4/camelcase-sendfile.js) | `res.sendfile()` |
-| [`pluralize-method-names.js`](./signatures-express-4/pluralize-method-names.js) | `req.acceptsCharset()`, `req.acceptsEncoding()`, `req.acceptsLanguage()` |
+- [`signatures-express-4/`](./signatures-express-4/): deprecated/removed Express 4 signatures.
+- [`signatures-express-5/`](./signatures-express-5/): equivalent Express 5-safe signatures.
 
-These are the exact patterns that crash when you upgrade to Express 5 without running the codemods first.
+Briefly: both folders use the same file names so you can diff each pattern directly (v4 form vs v5 replacement).
+
+| Pattern File | Express 4 | Express 5 |
+|------|---------|---------|
+| `route-del.js` | [`signatures-express-4/route-del.js`](./signatures-express-4/route-del.js) (`app.del()`) | [`signatures-express-5/route-del.js`](./signatures-express-5/route-del.js) (`app.delete()`) |
+| `status-send-order.js` | [`signatures-express-4/status-send-order.js`](./signatures-express-4/status-send-order.js) (`res.json(obj, status)`, `res.send(200)`) | [`signatures-express-5/status-send-order.js`](./signatures-express-5/status-send-order.js) (`res.status(...).json()`, `res.sendStatus(200)`) |
+| `redirect-arg-order.js` | [`signatures-express-4/redirect-arg-order.js`](./signatures-express-4/redirect-arg-order.js) (`res.redirect(url, status)`) | [`signatures-express-5/redirect-arg-order.js`](./signatures-express-5/redirect-arg-order.js) (`res.redirect(status, url)`) |
+| `back-redirect-deprecated.js` | [`signatures-express-4/back-redirect-deprecated.js`](./signatures-express-4/back-redirect-deprecated.js) (`'back'`) | [`signatures-express-5/back-redirect-deprecated.js`](./signatures-express-5/back-redirect-deprecated.js) (`req.get('Referrer') \|\| '/'`) |
+| `explicit-request-params.js` | [`signatures-express-4/explicit-request-params.js`](./signatures-express-4/explicit-request-params.js) (`req.param()`) | [`signatures-express-5/explicit-request-params.js`](./signatures-express-5/explicit-request-params.js) (`req.params` / `req.body` / `req.query`) |
+| `camelcase-sendfile.js` | [`signatures-express-4/camelcase-sendfile.js`](./signatures-express-4/camelcase-sendfile.js) (`res.sendfile()`) | [`signatures-express-5/camelcase-sendfile.js`](./signatures-express-5/camelcase-sendfile.js) (`res.sendFile()`) |
+| `pluralize-method-names.js` | [`signatures-express-4/pluralize-method-names.js`](./signatures-express-4/pluralize-method-names.js) (singular accepts methods) | [`signatures-express-5/pluralize-method-names.js`](./signatures-express-5/pluralize-method-names.js) (plural accepts methods) |
 
 ---
 
