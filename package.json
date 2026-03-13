@@ -1,0 +1,14 @@
+{
+  "name": "express-v5-codemod-demo",
+  "version": "1.0.0",
+  "description": "Demo project showcasing Express.js v5 migration codemods in action",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "migrate": "npx codemod@latest @expressjs/v5-migration-recipe",
+    "migrate:dry": "npx codemod@latest @expressjs/v5-migration-recipe --dry"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
